@@ -218,7 +218,14 @@ int copyLSB(int x) {
  *   Rating: 3 
  */
 int logicalShift(int x, int n) {
-  return (x >> n) & ( 0xff << );
+  // Mask of all 1's , and shift it once to get 0 as lead bit
+   // then shift the necessary number of times and subtract one to get proper number
+
+  int mask = 0xff | (0x7f << 8);
+  mask = (0xff | 0xff << 8) | (mask << 16);
+  mask = mask >> (n + ~0);
+  x = x >> n;
+  return (x & mask);
 }
 /*
  * bitCount - returns count of number of 1's in word
@@ -238,7 +245,8 @@ int bitCount(int x) {
  *   Rating: 4 
  */
 int bang(int x) {
-  return 2;
+  int mask = 0x00;
+  return (x & mask);
 }
 /* 
  * leastBitPos - return a mask that marks the position of the
@@ -258,7 +266,7 @@ int leastBitPos(int x) {
  *   Rating: 1
  */
 int tmax(void) {
-  return 2;
+  return (0x01 << 31);
 }
 /* 
  * isNonNegative - return 1 if x >= 0, return 0 otherwise 
@@ -289,7 +297,10 @@ int isGreater(int x, int y) {
  *   Rating: 2
  */
 int divpwr2(int x, int n) {
-    return 2;
+    x = ~x;
+    x = x >> n;
+    x = ~x + 1;
+    return x;
 }
 /* 
  * abs - absolute value of x (except returns TMin for TMin)
