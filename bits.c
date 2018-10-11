@@ -265,8 +265,7 @@ int bitCount(int x) {
  *   Rating: 4 
  */
 int bang(int x) {
-  int mask = 0x00;
-  return (x & mask);
+  return ((x >> 31) | ((~x + 1) >> 31)) + 1;
 }
 /* 
  * leastBitPos - return a mask that marks the position of the
@@ -330,6 +329,8 @@ int divpwr2(int x, int n) {
  *   Rating: 4
  */
 int abs(int x) {
+    
+}
   return 2;
 }
 /* 
