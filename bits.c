@@ -5,7 +5,7 @@
 * Author:
 *    Thomas Burr & Anthony da Silva
 * Summary:
-*    descriptive text
+*    This program will use bitwise operators to accomplish various tasks.
 ***********************************************************************/
 
 /* 
@@ -276,7 +276,7 @@ int bang(int x) {
  *   Rating: 4 
  */
 int leastBitPos(int x) {
-  return 2;
+  return x & (~x + 1);
 }
 /* 
  * TMax - return maximum two's complement integer 
@@ -285,7 +285,9 @@ int leastBitPos(int x) {
  *   Rating: 1
  */
 int tmax(void) {
-  return (0x01 << 31);
+  int x;
+  x = (0x80 << 24) ^ ~0;
+  return x;
 }
 /* 
  * isNonNegative - return 1 if x >= 0, return 0 otherwise 
@@ -329,9 +331,7 @@ int divpwr2(int x, int n) {
  *   Rating: 4
  */
 int abs(int x) {
-    
-}
-  return 2;
+  return 0;
 }
 /* 
  * addOK - Determine if can compute x+y without overflow
