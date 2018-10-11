@@ -235,8 +235,28 @@ int logicalShift(int x, int n) {
  *   Rating: 4
  */
 int bitCount(int x) {
-  return 2;
+  int mask1;
+  int mask2;
+  int mask3;
+  int mask4;
+  int mask5;
+  int count;
+
+  mask1 = (0x55 << 24) | (0x55 << 16) | (0x55 << 8) | 0x55;
+  mask2 = (0x33 << 24) | (0x33 << 16) | (0x33 << 8) | 0x33;
+  mask3 = (0x0F << 24) | (0x0F << 16) | (0x0F << 8) | 0x0F;
+  mask4 = (0xFF << 16) | 0xFF;
+  mask5 = (0xFF << 8) | 0xFF;
+
+  count = (x & mask1) + ((x >> 1) & mask1);
+  count = (count & mask2) + ((count >> 2) & mask2);
+  count = (count & mask3) + ((count >> 4) & mask3);
+  count = (count & mask4) + ((count >> 8) & mask4);
+  count = (count & mask5) + ((count >> 16) & mask5);
+
+  return count;
 }
+
 /* 
  * bang - Compute !x without using !
  *   Examples: bang(3) = 0, bang(0) = 1
