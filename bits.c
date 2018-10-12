@@ -297,7 +297,9 @@ int tmax(void) {
  *   Rating: 3
  */
 int isNonNegative(int x) {
-  return 2;
+  x = x >> 31;
+  x = (~x & 1);
+  return x;
 }
 /* 
  * isGreater - if x > y  then return 1, else return 0 
@@ -308,7 +310,7 @@ int isNonNegative(int x) {
  */
 int isGreater(int x, int y) {
   return 2;
-}
+  }
 /* 
  * divpwr2 - Compute x/(2^n), for 0 <= n <= 30
  *  Round toward zero
@@ -318,10 +320,7 @@ int isGreater(int x, int y) {
  *   Rating: 2
  */
 int divpwr2(int x, int n) {
-    x = ~x;
-    x = x >> n;
-    x = ~x + 1;
-    return x;
+   return (x + (( x >> 31) & ((1 << n) + ~0))) >> n;
 }
 /* 
  * abs - absolute value of x (except returns TMin for TMin)
@@ -331,7 +330,11 @@ int divpwr2(int x, int n) {
  *   Rating: 4
  */
 int abs(int x) {
-  return 0;
+  int mask;
+
+  mask = x >> 31;
+
+  return (mask ^ x) + (~mask + 1);
 }
 /* 
  * addOK - Determine if can compute x+y without overflow
@@ -342,5 +345,15 @@ int abs(int x) {
  *   Rating: 3
  */
 int addOK(int x, int y) {
-  return 2;
+  int z;
+  int a;
+  int b;
+  int c;
+
+  z = x + y;
+  a = x >> 31;
+  b = y >> 31;
+  c = z >> 31;
+
+  return (!!(a^b))|(!(a^c) & !(b^c));
 }
